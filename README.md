@@ -211,6 +211,29 @@ model_catalog_manage discover platform=tokenrhythm adopt=true
 
 ---
 
+## 🎯 任务画像：不填也能用（四层回退）
+
+调用方（agent）可以懒：不声明六维权重的场景按以下顺序解析，全程可解释：
+
+```text
+显式六维权重 (code=1.0 …)  >  profile 预设 (code/reasoning/writing/knowledge/multimodal/chat/general)
+                         >  任务文本自动分类（关键词计数，含歧义收敛到 general）
+                         >  general 通用画像（最终兜底）
+```
+
+`model_route_plan` 输出会标注画像来源与依据（例：`按任务文本自动分类 → code（依据: code×3）`），
+避免“黑盒画像”影响路由可审计性。
+
+## 📊 能力分的基准纪律（路由的心脏）
+
+- 六维能力分是路由输入的核心——**宁缺毋假**：无公开基准支撑的维度一律标
+  `capabilityConfidence: estimated`（分层估计，随新证据在覆盖层精化），绝不臆造 benchmark 数字。
+- 有出处的数据走 `benchmarkRefs: [{name, score, sourceUrl}]`（当前锚点：DeepSeek 家族
+  SWE-Bench、GLM-5.1 SWE-Bench Pro 等）。
+- 定期自查缺口：`model_catalog_manage action=bench-audit`（列出 estimated 模型、
+  有 refs 的模型与缺价模型，并给出回填规范）。
+- 建议闭环：接入 dsh-quality-gauge 等实测工具把「本机实测分数」回填为用户覆盖层。
+
 ## 📐 路由算法方法论
 
 ```mermaid
