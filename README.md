@@ -228,8 +228,11 @@ model_catalog_manage discover platform=tokenrhythm adopt=true
 
 - 六维能力分是路由输入的核心——**宁缺毋假**：无公开基准支撑的维度一律标
   `capabilityConfidence: estimated`（分层估计，随新证据在覆盖层精化），绝不臆造 benchmark 数字。
-- 有出处的数据走 `benchmarkRefs: [{name, score, sourceUrl}]`（当前锚点：DeepSeek 家族
-  SWE-Bench、GLM-5.1 SWE-Bench Pro 等）。
+- 有出处的数据走 `benchmarkRefs: [{name, score, sourceUrl}]` + `benchAnchors: {dim: {bench, score, sourceUrl}}`
+  （2026-09 首轮回填 10 个模型：SWE-bench Pro / LiveCodeBench / LVBench / SWE-Multilingual 等官方与权威对比表）。
+- **code 维校准公式（文档化）**：`code = min(100, 40 + 0.8 × SWE-基准分)`——把公开 agentic 编程基准
+  线性映射到 0-100 能力刻度（上限 100），避免"手工打分"的随意性；其余维度暂缺同等级权威锚点时保持专家估计
+  并在 benchAnchors 中如实标注空缺。
 - 定期自查缺口：`model_catalog_manage action=bench-audit`（列出 estimated 模型、
   有 refs 的模型与缺价模型，并给出回填规范）。
 - 建议闭环：接入 dsh-quality-gauge 等实测工具把「本机实测分数」回填为用户覆盖层。
