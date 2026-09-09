@@ -1,0 +1,47 @@
+{
+  "version": "2026-09-09.1",
+  "notes": "Agent CLI 适配器注册表（出厂层）。每个 agent = 一段声明式配置，通用执行器 agentCliExec 按此驱动。用户可在 overrides.json 的 agents 段增改删（null 删字段、__delete:true 删 agent）。parseProfile: plain=stdout 全文即最终消息；jsonl-codex=codex --json 事件流；json-envelope=单个 JSON 对象（按 envelope 字段取 finalText/usage 路径）。",
+
+  "agents": {
+    "codex": {
+      "displayName": "OpenAI Codex CLI",
+      "detect": "codex",
+      "command": ["codex", "exec", "--json", "--skip-git-repo-check", "--color", "never"],
+      "sandboxFlag": ["-s", "{sandbox}"],
+      "sandboxMap": { "read-only": "read-only", "workspace-write": "workspace-write", "danger-full-access": "danger-full-access" },
+      "modelFlag": ["-m", "{model}"],
+      "promptMode": "arg",
+      "separator": "--",
+      "parseProfile": "jsonl-codex",
+      "defaultTimeoutMs": 600000,
+      "billingNote": "走你的 OpenAI/Codex 账户（或其 config.toml 配置的 provider）"
+    },
+    "opencode": {
+      "displayName": "OpenCode (sst/opencode)",
+      "detect": "opencode",
+      "command": ["opencode", "run"],
+      "modelFlag": ["--model", "{model}"],
+      "promptMode": "arg",
+      "parseProfile": "plain",
+      "defaultTimeoutMs": 600000,
+      "billingNote": "走 opencode 配置的模型 provider（其 config/opencode.json / auth）",
+      "confidence": "estimated",
+      "note": "语法来自官方文档 opencode run [message..]；本机未安装，首次使用前先 opencode run 'hi' 验证"
+    },
+    "claude-code": {
+      "displayName": "Claude Code CLI",
+      "detect": "claude",
+      "command": ["claude", "-p", "--output-format", "json"],
+      "modelFlag": ["--model", "{model}"],
+      "promptMode": "arg",
+      "permissionMode": ["--permission-mode", "{permission}"],
+      "permissionMap": { "read-only": "plan", "workspace-write": "acceptEdits", "danger-full-access": "bypassPermissions" },
+      "parseProfile": "json-envelope",
+      "envelope": { "finalText": "result", "usage": { "promptTokens": "usage.input_tokens", "completionTokens": "usage.output_tokens" } },
+      "defaultTimeoutMs": 600000,
+      "billingNote": "走 Anthropic 账户（订阅或 API）",
+      "confidence": "estimated",
+      "note": "headless 模式 claude -p <prompt> --output-format json；本机未安装，首次使用前先验证"
+    }
+  }
+}

@@ -1,0 +1,342 @@
+{
+  "version": "2026-09-09.1",
+  "updatedAt": "2026-09-09",
+  "notes": "出厂默认目录。价格字段：input/output/cacheRead 均为「每 1M tokens、平台本位币」。confidence: verified=当日官网核实；reported=权威媒体/比价文报道；estimated=按家族/上一代推算。能力分 0-100：benchmarked=有公开基准；estimated=分层估计（待用户经 catalog.d 覆盖层精化）。",
+
+  "platforms": {
+    "tokenrhythm": {
+      "displayName": "基元律动",
+      "baseURL": "https://tokenrhythm.studio/v1",
+      "protocol": "openai-completions",
+      "credentialRef": "TOKENRHYTHM_API_KEY",
+      "currency": "CNY",
+      "notes": "中国版 OpenRouter 聚合平台（21 个文本模型）。deepseek 系定价恰为官方高峰价。",
+      "sourceUrl": "https://tokenrhythm.studio/models"
+    },
+    "deepseek-official": {
+      "displayName": "DeepSeek 官方",
+      "baseURL": "https://api.deepseek.com",
+      "protocol": "openai-completions",
+      "credentialRef": "DEEPSEEK_API_KEY",
+      "currency": "USD",
+      "timeVarying": { "peakUtcHourRanges": [[1, 4], [6, 10]], "weekdaysOnly": true, "note": "峰时价格为谷时 2 倍；周一至周五 01:00-04:00、06:00-10:00 UTC（北京时间 09:00-12:00、14:00-18:00）为峰时" },
+      "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing"
+    },
+    "siliconflow": {
+      "displayName": "硅基流动",
+      "baseURL": "https://api.siliconflow.cn/v1",
+      "protocol": "openai-completions",
+      "credentialRef": "SILICONFLOW_API_KEY",
+      "currency": "CNY",
+      "notes": "国内直连聚合。modelId 为 org/name 形式，未经本机实测，首次调用前请用 model_catalog_manage.show 核对。",
+      "sourceUrl": "https://my.oschina.net/u/9760751/blog/19743346"
+    }
+  },
+
+  "models": [
+    {
+      "id": "deepseek-v4-flash",
+      "family": "DeepSeek V4",
+      "vendor": "DeepSeek",
+      "contextWindow": 1000000,
+      "maxTokens": 384000,
+      "input": ["text"],
+      "thinking": true,
+      "capabilities": { "code": 90, "reasoning": 88, "writing": 82, "knowledge": 86, "multimodal": 0, "speed": 88 },
+      "capabilityConfidence": "estimated",
+      "benchmarkRefs": [{ "name": "SWE-Bench (家族参考 V3.2)", "score": "~68%", "sourceUrl": "https://zhuanlan.zhihu.com/p/2030610404418793586" }],
+      "prices": {
+        "deepseek-official": { "modelId": "deepseek-v4-flash", "cacheMissInput": { "offPeak": 0.22, "peak": 0.44 }, "cacheHitInput": { "offPeak": 0.007, "peak": 0.014 }, "output": { "offPeak": 0.66, "peak": 1.32 }, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing" },
+        "tokenrhythm": { "modelId": "deepseek-v4-flash-0731", "input": 3.0, "output": 9.0, "cacheRead": 0.10, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" },
+        "siliconflow": { "modelId": "deepseek-ai/DeepSeek-V4-Flash", "input": 1.0, "output": 2.0, "cacheRead": 0.02, "confidence": "reported", "sourceUrl": "https://my.oschina.net/u/9760751/blog/19743346" }
+      }
+    },
+    {
+      "id": "deepseek-v4-pro",
+      "family": "DeepSeek V4",
+      "vendor": "DeepSeek",
+      "contextWindow": 1000000,
+      "maxTokens": 384000,
+      "input": ["text"],
+      "thinking": true,
+      "capabilities": { "code": 94, "reasoning": 95, "writing": 88, "knowledge": 92, "multimodal": 0, "speed": 70 },
+      "capabilityConfidence": "estimated",
+      "prices": {
+        "deepseek-official": { "modelId": "deepseek-v4-pro", "cacheMissInput": { "offPeak": 0.66, "peak": 1.32 }, "cacheHitInput": { "offPeak": 0.022, "peak": 0.044 }, "output": { "offPeak": 1.98, "peak": 3.96 }, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing" },
+        "tokenrhythm": { "modelId": "deepseek-v4-pro-0813", "input": 9.0, "output": 27.0, "cacheRead": 0.30, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" }
+      }
+    },
+    {
+      "id": "deepseek-v4-flash-vision-exp",
+      "family": "DeepSeek V4",
+      "vendor": "DeepSeek",
+      "contextWindow": 1000000,
+      "maxTokens": 384000,
+      "input": ["text", "image"],
+      "thinking": true,
+      "capabilities": { "code": 88, "reasoning": 86, "writing": 80, "knowledge": 85, "multimodal": 84, "speed": 86 },
+      "capabilityConfidence": "estimated",
+      "prices": {
+        "deepseek-official": { "modelId": "deepseek-v4-flash-vision-exp", "cacheMissInput": { "offPeak": 0.22, "peak": 0.44 }, "cacheHitInput": { "offPeak": 0.007, "peak": 0.014 }, "output": { "offPeak": 0.66, "peak": 1.32 }, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://api-docs.deepseek.com/quick_start/pricing" }
+      }
+    },
+    {
+      "id": "glm-5.3",
+      "family": "GLM-5",
+      "vendor": "智谱 AI",
+      "contextWindow": 1050000,
+      "maxTokens": 131072,
+      "input": ["text"],
+      "thinking": true,
+      "capabilities": { "code": 88, "reasoning": 90, "writing": 88, "knowledge": 88, "multimodal": 0, "speed": 75 },
+      "capabilityConfidence": "estimated",
+      "prices": {
+        "tokenrhythm": { "modelId": "glm-5.3", "input": 8.0, "output": 28.0, "cacheRead": 2.0, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" }
+      }
+    },
+    {
+      "id": "glm-5.3-flash",
+      "family": "GLM-5",
+      "vendor": "智谱 AI",
+      "contextWindow": 1050000,
+      "maxTokens": 131072,
+      "input": ["text", "image"],
+      "thinking": true,
+      "capabilities": { "code": 76, "reasoning": 78, "writing": 82, "knowledge": 80, "multimodal": 88, "speed": 95 },
+      "capabilityConfidence": "estimated",
+      "prices": {
+        "tokenrhythm": { "modelId": "glm-5.3-flash", "input": 0.40, "output": 1.40, "cacheRead": 0.115, "promo": "原价 ¥0.80/¥2.80，当前五折促销", "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" }
+      }
+    },
+    {
+      "id": "glm-5.2",
+      "family": "GLM-5",
+      "vendor": "智谱 AI",
+      "contextWindow": 1000000,
+      "maxTokens": 131072,
+      "input": ["text"],
+      "thinking": true,
+      "capabilities": { "code": 85, "reasoning": 86, "writing": 86, "knowledge": 86, "multimodal": 0, "speed": 78 },
+      "capabilityConfidence": "estimated",
+      "prices": {
+        "tokenrhythm": { "modelId": "glm-5.2", "input": 8.0, "output": 28.0, "cacheRead": 2.0, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" },
+        "siliconflow": { "modelId": "zai-org/GLM-5.2", "input": 8.0, "output": 28.0, "cacheRead": 2.0, "confidence": "reported", "sourceUrl": "https://my.oschina.net/u/9760751/blog/19743346" }
+      }
+    },
+    {
+      "id": "glm-5.1",
+      "family": "GLM-5",
+      "vendor": "智谱 AI",
+      "contextWindow": 200000,
+      "maxTokens": 131072,
+      "input": ["text"],
+      "thinking": true,
+      "capabilities": { "code": 82, "reasoning": 84, "writing": 84, "knowledge": 84, "multimodal": 0, "speed": 80 },
+      "capabilityConfidence": "estimated",
+      "benchmarkRefs": [{ "name": "SWE-Bench Pro", "score": "~57%", "sourceUrl": "https://zhuanlan.zhihu.com/p/2030610404418793586" }],
+      "prices": {
+        "tokenrhythm": { "modelId": "glm-5.1", "input": 8.0, "output": 28.0, "cacheRead": 2.0, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" }
+      }
+    },
+    {
+      "id": "glm-5",
+      "family": "GLM-5",
+      "vendor": "智谱 AI",
+      "contextWindow": 1000000,
+      "maxTokens": 131072,
+      "input": ["text"],
+      "thinking": true,
+      "capabilities": { "code": 80, "reasoning": 82, "writing": 82, "knowledge": 82, "multimodal": 0, "speed": 80 },
+      "capabilityConfidence": "estimated",
+      "prices": {
+        "tokenrhythm": { "modelId": "glm-5", "input": 6.0, "output": 22.0, "cacheRead": 1.5, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" }
+      }
+    },
+    {
+      "id": "kimi-k2.7-code",
+      "family": "Kimi K2",
+      "vendor": "月之暗面",
+      "contextWindow": 256000,
+      "maxTokens": 16384,
+      "input": ["text", "image"],
+      "thinking": true,
+      "capabilities": { "code": 88, "reasoning": 82, "writing": 78, "knowledge": 80, "multimodal": 40, "speed": 82 },
+      "capabilityConfidence": "estimated",
+      "notes": "注意：最大输出仅 16K tokens，长产出任务不适用。",
+      "prices": {
+        "tokenrhythm": { "modelId": "kimi-k2.7-code", "input": 6.5, "output": 27.0, "cacheRead": 1.3, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" },
+        "siliconflow": { "modelId": "moonshotai/Kimi-K2.7-Code", "input": 6.5, "output": 27.0, "confidence": "reported", "sourceUrl": "https://my.oschina.net/u/9760751/blog/19743346" }
+      }
+    },
+    {
+      "id": "kimi-k2.6",
+      "family": "Kimi K2",
+      "vendor": "月之暗面",
+      "contextWindow": 256000,
+      "maxTokens": 131072,
+      "input": ["text", "image"],
+      "thinking": true,
+      "capabilities": { "code": 84, "reasoning": 82, "writing": 82, "knowledge": 82, "multimodal": 40, "speed": 80 },
+      "capabilityConfidence": "estimated",
+      "prices": {
+        "tokenrhythm": { "modelId": "kimi-k2.6", "input": 6.5, "output": 27.0, "cacheRead": 1.3, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" }
+      }
+    },
+    {
+      "id": "kimi-k2.5",
+      "family": "Kimi K2",
+      "vendor": "月之暗面",
+      "contextWindow": 256000,
+      "maxTokens": 65536,
+      "input": ["text", "image"],
+      "thinking": true,
+      "capabilities": { "code": 80, "reasoning": 78, "writing": 80, "knowledge": 80, "multimodal": 40, "speed": 82 },
+      "capabilityConfidence": "estimated",
+      "prices": {
+        "tokenrhythm": { "modelId": "kimi-k2.5", "input": 4.0, "output": 21.0, "cacheRead": 0.8, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" }
+      }
+    },
+    {
+      "id": "qwen3.8-max",
+      "family": "Qwen3.8",
+      "vendor": "阿里云",
+      "contextWindow": 1000000,
+      "maxTokens": 131072,
+      "input": ["text", "image"],
+      "thinking": true,
+      "capabilities": { "code": 86, "reasoning": 88, "writing": 86, "knowledge": 88, "multimodal": 90, "speed": 76 },
+      "capabilityConfidence": "estimated",
+      "prices": {
+        "tokenrhythm": { "modelId": "qwen3.8-max", "input": null, "output": null, "confidence": "unknown", "note": "在 /v1/models 清单中但价格页第2页未核实——用 model_catalog_manage 覆盖层补齐" }
+      }
+    },
+    {
+      "id": "qwen3.8-flash",
+      "family": "Qwen3.8",
+      "vendor": "阿里云",
+      "contextWindow": 1000000,
+      "maxTokens": 131072,
+      "input": ["text", "image"],
+      "thinking": true,
+      "capabilities": { "code": 74, "reasoning": 76, "writing": 80, "knowledge": 78, "multimodal": 85, "speed": 96 },
+      "capabilityConfidence": "estimated",
+      "prices": {
+        "tokenrhythm": { "modelId": "qwen3.8-flash", "input": 0.40, "output": 1.35, "cacheRead": 0.10, "promo": "促销价（原 ¥0.80/¥2.70）", "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" }
+      }
+    },
+    {
+      "id": "qwen3.8-27b",
+      "family": "Qwen3.8",
+      "vendor": "阿里云",
+      "contextWindow": 1000000,
+      "maxTokens": 131072,
+      "input": ["text", "image"],
+      "thinking": true,
+      "capabilities": { "code": 72, "reasoning": 74, "writing": 78, "knowledge": 76, "multimodal": 82, "speed": 94 },
+      "capabilityConfidence": "estimated",
+      "prices": {
+        "tokenrhythm": { "modelId": "qwen3.8-27b", "input": 3.0, "output": 12.0, "cacheRead": 0.6, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" }
+      }
+    },
+    {
+      "id": "qwen3.7-flash",
+      "family": "Qwen3.7",
+      "vendor": "阿里云",
+      "contextWindow": 1000000,
+      "maxTokens": 131072,
+      "input": ["text", "image"],
+      "thinking": true,
+      "capabilities": { "code": 70, "reasoning": 72, "writing": 76, "knowledge": 75, "multimodal": 82, "speed": 95 },
+      "capabilityConfidence": "estimated",
+      "prices": {
+        "tokenrhythm": { "modelId": "qwen3.7-flash", "input": 1.2, "output": 4.8, "cacheRead": 0.24, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" }
+      }
+    },
+    {
+      "id": "minimax-m2.7",
+      "family": "MiniMax M2",
+      "vendor": "MiniMax",
+      "contextWindow": 200000,
+      "maxTokens": 192000,
+      "input": ["text"],
+      "thinking": true,
+      "capabilities": { "code": 78, "reasoning": 78, "writing": 80, "knowledge": 78, "multimodal": 0, "speed": 90 },
+      "capabilityConfidence": "estimated",
+      "prices": {
+        "tokenrhythm": { "modelId": "minimax-m2.7", "input": 2.1, "output": 8.4, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" },
+        "siliconflow": { "modelId": "MiniMax/MiniMax-M2.5", "input": 2.1, "output": 8.4, "confidence": "reported", "note": "硅基流动报价为 M2.5", "sourceUrl": "https://my.oschina.net/u/9760751/blog/19743346" }
+      }
+    },
+    {
+      "id": "minimax-m2.5",
+      "family": "MiniMax M2",
+      "vendor": "MiniMax",
+      "contextWindow": 200000,
+      "maxTokens": 200000,
+      "input": ["text"],
+      "thinking": true,
+      "capabilities": { "code": 76, "reasoning": 76, "writing": 78, "knowledge": 77, "multimodal": 0, "speed": 90 },
+      "capabilityConfidence": "estimated",
+      "prices": {
+        "tokenrhythm": { "modelId": "minimax-m2.5", "input": 2.1, "output": 8.4, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" },
+        "siliconflow": { "modelId": "MiniMax/MiniMax-M2.5", "input": 2.1, "output": 8.4, "confidence": "reported", "sourceUrl": "https://my.oschina.net/u/9760751/blog/19743346" }
+      }
+    },
+    {
+      "id": "seed-2.1-pro",
+      "family": "Seed 2.1",
+      "vendor": "字节火山方舟",
+      "contextWindow": 262144,
+      "maxTokens": 131072,
+      "input": ["text", "image"],
+      "thinking": true,
+      "capabilities": { "code": 76, "reasoning": 82, "writing": 80, "knowledge": 80, "multimodal": 88, "speed": 78 },
+      "capabilityConfidence": "estimated",
+      "prices": {
+        "tokenrhythm": { "modelId": "seed-2.1-pro", "input": 6.0, "output": 30.0, "cacheRead": 1.2, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" }
+      }
+    },
+    {
+      "id": "seed-2.1-turbo",
+      "family": "Seed 2.1",
+      "vendor": "字节火山方舟",
+      "contextWindow": 262144,
+      "maxTokens": 131072,
+      "input": ["text", "image"],
+      "thinking": true,
+      "capabilities": { "code": 72, "reasoning": 76, "writing": 76, "knowledge": 76, "multimodal": 86, "speed": 88 },
+      "capabilityConfidence": "estimated",
+      "prices": {
+        "tokenrhythm": { "modelId": "seed-2.1-turbo", "input": 3.0, "output": 15.0, "cacheRead": 0.6, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" }
+      }
+    },
+    {
+      "id": "longcat-2.0",
+      "family": "LongCat",
+      "vendor": "美团",
+      "contextWindow": 1000000,
+      "maxTokens": 131072,
+      "input": ["text"],
+      "thinking": true,
+      "capabilities": { "code": 74, "reasoning": 74, "writing": 74, "knowledge": 74, "multimodal": 0, "speed": 84 },
+      "capabilityConfidence": "estimated",
+      "prices": {
+        "tokenrhythm": { "modelId": "longcat-2.0", "input": 5.0, "output": 20.0, "cacheRead": 0.1, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" }
+      }
+    },
+    {
+      "id": "mimo-v2.5-pro",
+      "family": "MiMo",
+      "vendor": "小米",
+      "contextWindow": 256000,
+      "maxTokens": 256000,
+      "input": ["text"],
+      "thinking": true,
+      "capabilities": { "code": 70, "reasoning": 72, "writing": 72, "knowledge": 72, "multimodal": 0, "speed": 92 },
+      "capabilityConfidence": "estimated",
+      "prices": {
+        "tokenrhythm": { "modelId": "mimo-v2.5-pro", "input": 3.0, "output": 6.0, "confidence": "verified", "verifiedAt": "2026-09-09", "sourceUrl": "https://tokenrhythm.studio/models" }
+      }
+    }
+  ]
+}

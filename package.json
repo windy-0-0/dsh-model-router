@@ -1,0 +1,20 @@
+{
+  "name": "dsh-model-router",
+  "version": "0.1.0",
+  "description": "DSH 模型调度中枢：任务感知跨平台路由 + 直调调度 + Agent CLI 注册表（codex/opencode/claude-code）+ 费用账本，三层目录热更新",
+  "type": "module",
+  "main": "lib/index.js",
+  "files": [
+    "lib/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "model-router",
+    "llm-routing",
+    "cost-aware"
+  ],
+  "license": "MIT"
+}
