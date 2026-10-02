@@ -1,0 +1,5 @@
+# dsh-model-router：模型调度中枢（跨平台路由 + 直调 + Agent CLI 注册表 + 费用账本）。
+# 行 id 必须是稳定的：面板开关与 `dsh plugin ... remove` 都按它寻址。
+- insert:
+    - id: model-router
+      name: dsh-model-router
